@@ -1,6 +1,6 @@
 # Claude Code — user-global instructions
 
-@~/src/setup-agents-dev/AGENTS.md
+@~/.claude/AGENTS.md
 
 ## Claude Code specifics (this machine)
 
