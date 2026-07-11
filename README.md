@@ -49,8 +49,6 @@ The asymmetry is deliberate: Claude Code supports `@path` imports, so its file *
 
    The script locates its own repo (so it can be run from anywhere), links `~/.claude/CLAUDE.md` → `CLAUDE.md` and `~/.claude/AGENTS.md` + `~/.codex/AGENTS.md` → `AGENTS.md`, then prints where each link resolves. Re-running when the links are already correct is a no-op.
 
-   Machines configured before the home-anchored import (July 2026): re-run `./setup.sh` once after pulling — it adds the now-required `~/.claude/AGENTS.md` link.
-
    Adding another agent later: point its global-instructions path at `AGENTS.md` (e.g. Gemini CLI reads `~/.gemini/GEMINI.md`; check the tool's docs). If the tool supports includes/imports, mirror the Claude pattern with a tool-specific wrapper file instead.
 
 5. **Verify:** `setup.sh` prints where each link resolves — all three must point into this repo. Then start a session in each agent and confirm the preferences apply (in Claude Code, `/memory` lists the loaded files).
