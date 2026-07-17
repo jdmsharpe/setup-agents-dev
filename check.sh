@@ -34,7 +34,15 @@ for tool in $tree_tools; do
     err "decision-tree tool '$tool' (formula '$formula') is missing from Brewfile"
 done
 
-# 3. Every Brewfile formula must still be mentioned in AGENTS.md — a tool
+# 3. Every Brewfile line must be a comment, blank, or brew "..." entry —
+#    catches typos Homebrew would only reject at install time, with no
+#    dependency on brew/ruby being present (CI runners have neither).
+bad_lines="$(grep -nvE '^(#.*|[[:space:]]*|brew "[^"]+"[[:space:]]*(#.*)?)$' Brewfile || true)"
+if [ -n "$bad_lines" ]; then
+  err "Brewfile has malformed line(s): $bad_lines"
+fi
+
+# 4. Every Brewfile formula must still be mentioned in AGENTS.md — a tool
 #    dropped from the canon should be dropped from the manifest too.
 while IFS= read -r formula; do
   binary="${binary_of[$formula]:-$formula}"
